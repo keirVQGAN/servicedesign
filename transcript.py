@@ -32,5 +32,7 @@ def transcript(openai_key, call='tutorial'):
 
         response = chatbot(openai_key, system_prompt, user_message, count_tokens, chat)
         save_tutorial(response, student)
-
-    zip_path(f'./output/tutorials','/content/tutorials')
+        print(f'Tutorial with {student} summarised successfully')
+        outpath_zip = './output/tutorials'
+    zip_path(outpath_zip, f'{output_zip}/tutorial_summaries')
+    print(f'All transcripts summarised and saved to zip')
