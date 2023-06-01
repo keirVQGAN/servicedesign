@@ -4,6 +4,7 @@ from src.utils.clean_text import clean_text
 from src.utils.docx2txt import docx2txt
 from src.chatbot import chatbot
 from src.save_tutorial import save_tutorial
+from src.utils.zip_path import zip_path
 
 
 def transcript(openai_key, call='tutorial'):
@@ -32,3 +33,4 @@ def transcript(openai_key, call='tutorial'):
         response = chatbot(openai_key, system_prompt, user_message, count_tokens, chat)
         save_tutorial(response, student)
 
+    zip_path(f'./output/tutorials','/content/tutorials')
