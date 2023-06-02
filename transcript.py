@@ -34,7 +34,7 @@ def transcript(openai_key, call='tutorial'):
         save_tutorial(response, student)
         print(f'Tutorial with {student} summarised successfully')
     
-    outpath_zip = './output/tutorials'
+    outpath_zip = '/content/servicedesign/output/tutorials'
     outpath_zipfile = f'{outpath_zip}/tutorial_summaries'    
-    zip_path(outpath_zip, outpath_zipfile)
+    zip_path(outpath_zip, outpath_zipfile, '.txt')
     print(f'All transcripts summarised and saved to {outpath_zipfile}')
