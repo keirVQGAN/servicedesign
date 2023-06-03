@@ -3,11 +3,13 @@ import tiktoken
 import json
 import yaml
 import re
+from src.utils.txt2str import txt2str
 
-def chatoracle(openai_key, system_prompt=None, user_message=None, count_tokens=False, chat=True, yml_file=None):
+def chatoracle(openai_key=None, system_prompt_file = './config/oracle/system_prompt.txt', yml_file = './config/chatbot/config_chat.yml',  user_message=None, count_tokens=False, chat=True):
     enc = tiktoken.get_encoding("cl100k_base")
     openai.api_key = openai_key
-
+    system_prompt=txt2str(system_prompt_file)
+    openai_key = os.environ.get('OPENAI_API_KEY')
     if system_prompt is None:
         with open(yml_file, 'r') as file:
             data = yaml.safe_load(file)
