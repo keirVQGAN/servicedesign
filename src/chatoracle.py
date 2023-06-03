@@ -3,6 +3,7 @@ import tiktoken
 import json
 import yaml
 import re
+import os
 from src.utils.txt2str import txt2str
 
 def chatoracle(openai_key=None, system_prompt_file = './config/oracle/system_prompt.txt', yml_file = './config/chatbot/config_chat.yml',  user_message=None, count_tokens=False, chat=True):
