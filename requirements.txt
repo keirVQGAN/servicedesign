@@ -3,3 +3,4 @@ tiktoken
 simplejson
 nltk
 python-docx
+gradio
