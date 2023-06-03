@@ -35,10 +35,10 @@ def chatoracle(openai_key=None, system_prompt_file = './config/oracle/system_pro
         token_count = len(enc.encode(" ".join([msg["content"] for msg in messages])))
         token_cost = token_count / 1000 * 0.002 # gpt-3.5-turbo cost
         return "🟡 Used tokens this round: " + str(token_count) + " (" + format(token_cost, '.5f') + " USD)"
-
+    #   
     def save_rendered_content(content):
         # Extract the JSON string from the content
-        match = re.search(r'START(.*?)END', content, re.S)
+        match = re.search(r'START\n(.*?)\nSTOP', content, re.S)
         if match:
             response = match.group(1)
             # Parse the JSON string and save to a file
