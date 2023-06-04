@@ -1,4 +1,5 @@
-key: null
+key: ""
+prompt: ""
 embeddings_model: null
 enhance_prompt: 'yes'
 guidance_scale: 7.5
