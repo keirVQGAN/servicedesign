@@ -2,7 +2,7 @@ import os
 import json
 import yaml
 from datetime import datetime
-import requests as re
+import re
 
 
 def yaml2json(yaml_file):
