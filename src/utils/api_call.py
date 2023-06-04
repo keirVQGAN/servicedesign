@@ -1,3 +1,4 @@
+import requests, json, os
 
 def api_call(url, data=None, headers=None):
     response = requests.post(url, json=data, headers=headers) if data else requests.get(url, headers=headers)
