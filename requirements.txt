@@ -4,3 +4,4 @@ simplejson
 nltk
 python-docx
 gradio
+pyuploadcare
