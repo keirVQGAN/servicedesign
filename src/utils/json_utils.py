@@ -24,12 +24,13 @@ def get_json_value(input_data, key):
     return data.get(key)
 
 
-def update_json_value(dictionary, key, new_value):
-    if key in dictionary:
-        dictionary[key] = new_value
-        return dictionary
-    else:
-        return None
+def update_json_values(dictionary, updates):
+    for key, new_value in updates.items():
+        if key in dictionary:
+            dictionary[key] = new_value
+        else:
+            return None
+    return dictionary
 
 
 def find_json_values(json_path_or_file, key):
