@@ -1,4 +1,7 @@
-import requests, json, os
+import os
+import json
+import requests
+
 
 def api_call(url, data):
     headers = {'Content-Type': 'application/json'}
@@ -8,3 +11,4 @@ def api_call(url, data):
     else:
         print(f"API call failed with status code: {response.status_code}")
         return None
+        
