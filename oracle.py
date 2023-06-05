@@ -1,5 +1,4 @@
 import gradio as gr
-import re
 import json
 import yaml
 import os
@@ -9,11 +8,11 @@ from src.utils.txt2str import txt2str
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
-
 def chatoracle(openai_key=None, system_prompt_file='./config/oracle/system_prompt.txt',
                yml_file='./config/chatbot/config_chat.yml'):
     system_prompt = txt2str(system_prompt_file) or load_system_prompt(yml_file)
     messages = [{"role": "system", "content": system_prompt}]
+    questions_counter = 0
 
     def get_prompt(user_input):
         context = messages.copy()
@@ -28,26 +27,28 @@ def chatoracle(openai_key=None, system_prompt_file='./config/oracle/system_promp
         messages.append({"role": "assistant", "content": completion.choices[0].message.content})
         return completion.choices[0].message.content
 
-    def save_rendered_content(content):
-        match = re.search(r'ORACLE(.*?)', content, re.S)
-        if match:
-            response = match.group(1)
-            with open('rendered_content.json', 'w') as file:
-                json.dump(json.loads(response), file, indent=4)
-            with open('chat_history.json', 'a') as f:
-                json.dump(messages, f, indent=4)
-            return True
+    def save_chat_history_and_response(response):
+        with open('chat_history.json', 'w') as f:
+            json.dump(messages, f, indent=4)
+        with open('final_response.txt', 'w') as f:
+            f.write(response)
 
     def user(user_message, history):
+        nonlocal questions_counter
+        questions_counter += 1
         return "", history + [[user_message, None]]
 
     def bot(history):
+        nonlocal questions_counter
         user_message = history[-1][0]
         completion = create_chat_completion(user_message)
-        save_rendered_content(completion)
         ai_message = completion.strip()
 
         history[-1][1] = ai_message
+
+        if questions_counter == 4:  # Save after 3rd user question and the assistant's response
+            save_chat_history_and_response(ai_message)
+
         for _ in ai_message:
             time.sleep(0.05)
             yield history
@@ -74,4 +75,6 @@ def load_system_prompt(yml_file):
 
 if __name__ == "__main__":
     openai_api_key = os.environ.get('OPENAI_API_KEY')
+   
+
     chatoracle()
