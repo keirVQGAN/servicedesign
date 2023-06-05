@@ -29,7 +29,7 @@ def chatoracle(openai_key=None, system_prompt_file='./config/oracle/system_promp
         return completion.choices[0].message.content
 
     def save_rendered_content(content):
-        match = re.search(r'START\n(.*?)\nSTOP', content, re.S)
+        match = re.search(r'ORACLE(.*?)', content, re.S)
         if match:
             response = match.group(1)
             with open('rendered_content.json', 'w') as file:
