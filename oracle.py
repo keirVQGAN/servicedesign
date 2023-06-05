@@ -73,6 +73,5 @@ def load_system_prompt(yml_file):
 
 
 if __name__ == "__main__":
-    os.environ['OPENAI_API_KEY'] = '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'
     openai_api_key = os.environ.get('OPENAI_API_KEY')
     chatoracle()
