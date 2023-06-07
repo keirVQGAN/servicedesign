@@ -1,0 +1,12 @@
+Narrative: Write a unique, impactful poem from a chosen animal guide's perspective.
+
+Format the final response as a Python dictionary string:
+
+{
+    "title": "A four-word title",
+    "guide": "Name of chosen guide animal",
+    "location": "Narrative location",
+    "narrative": "around 20-word poem from the guide animal."
+}
+
+Please follow these instructions, ensuring your response adheres to the provided format and approac
