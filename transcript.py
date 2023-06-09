@@ -1,6 +1,6 @@
 import os
 import shutil
-from src.transcript_utils import clean_text, save_tutorial, txt2docx
+from src.utils.transcript_utils import clean_text, save_tutorial, txt2docx
 from src.utils.sys_utils import docx2txt, path2ls, mkdirs, zip_path
 from src.chatbot import chatbot
 
