@@ -14,7 +14,7 @@ def read_prompts(file_path):
     return prompts
 
 
-def transcript(openai_key, call='tutorial', prompts_file='prompts.txt'):
+def transcript(openai_key, call='tutorial', prompts_file='./config/transcripts/transcript_prompts.txt'):
     transcripts_path = './inputs/tutorials/transcripts'
     students = path2ls(transcripts_path, '.docx')
     prompts = read_prompts(prompts_file)
