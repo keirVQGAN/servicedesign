@@ -33,7 +33,7 @@ def transcript(openai_key, call='tutorial', prompts_file='./config/transcript/tr
 
         count_tokens = False
         chat = False
-        print('Summarising Tutorial with {student}')
+        print(f'Summarising Tutorial with {student}')
         response = chatbot(openai_key, system_prompt, user_message, count_tokens, chat)
         save_tutorial(response, student)
         print(f'Tutorial with {student} summarised successfully')
