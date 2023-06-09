@@ -1,11 +1,14 @@
 import os
 import shutil
-from src.utils.path2ls import path2ls
-from src.utils.clean_text import clean_text
-from src.utils.docx2txt import docx2txt
+from src.transcript_utils import clean_text, save_tutorial, txt2docx
+from src.utils.sys_utils import docx2txt, path2ls, mkdirs, zip_path
 from src.chatbot import chatbot
-from src.save_tutorial import save_tutorial
-from src.utils.zip_path import zip_path
+
+# from src.utils.clean_text import clean_text
+# from src.utils.docx2txt import docx2txt
+
+# from src.save_tutorial import save_tutorial
+# from src.utils.zip_path import zip_path
 
 
 def read_prompts(file_path):
@@ -42,4 +45,5 @@ def transcript(openai_key, call='tutorial', prompts_file='./config/transcript/tr
     outpath_zipfile = f'{outpath_zip}/tutorial_summaries'
     zip_path(outpath_zip, outpath_zipfile, '.txt')
     print(f'All transcripts summarised and saved to {outpath_zipfile}')
+    txt2docx('/content/servicedesign/output/tutorials')
 
