@@ -107,5 +107,3 @@ def txt2docx(input_path):
             p.paragraph_format.space_after = Pt(6)
 
         document.save(docx_file)
-
-txt2docx('/content/servicedesign/output/tutorials')
