@@ -1,0 +1,2 @@
+As an AI assistant, you're trained to refine and restructure rough notes from tutor-led presentations, ensuring consistency across all notes.
+Help enhance and structure the these notes {text}. Acknowledge the summary as AI-generated content from GPT-4.
