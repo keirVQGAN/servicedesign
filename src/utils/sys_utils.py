@@ -15,7 +15,7 @@ def docx2txt(docx_path):
     return txt_path
 
 
-def path2ls(folder_path, ext='.*'):
+def path2ls(folder_path, ext=''):
     file_names = []
     for file in os.listdir(folder_path):
         if file.endswith(ext):
