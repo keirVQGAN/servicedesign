@@ -14,6 +14,10 @@ def upload_img(img_path):
 def download_img(image_urls, folder_path):
     os.makedirs(folder_path, exist_ok=True)
     print(f'Downloading images to {folder_path}')
+    # If a single URL is provided, wrap it in a list
+    if isinstance(image_urls, str):
+        image_urls = [image_urls]
+    
     for url in image_urls:
         try:
             response = requests.get(url)
