@@ -4,7 +4,7 @@ from src.utils.json_utils import write_to_json, append_to_json, calculate_eta
 
 from src.utils.sys_utils import mkdirs
 
-import datetime
+import datetime, os, json
 
 class ResponseProcessor:
     def __init__(self, response):
@@ -12,10 +12,9 @@ class ResponseProcessor:
         self.status = response['status']
 
     def process(self):
+        self.process_success_status()
         if self.status == 'processing':
             return self.process_processing_status()
-        elif self.status == 'success':
-            return self.process_success_status()
         elif self.status in ['error', 'failed']:
             return self.process_error_response()
         else:
