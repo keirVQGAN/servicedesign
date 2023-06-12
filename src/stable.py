@@ -2,7 +2,7 @@ import requests
 import yaml
 import time
 
-def stable(api_key=None, call=None, prompt=None, init_image=None, mask_image=None):
+def stable(api_key=None, call=None, prompt=None, negative_prompt=None, init_image=None, mask_image=None):
     if call == 'controlnet':
         url = 'https://stablediffusionapi.com/api/v5/controlnet'
         yaml_file = '/content/config/stable/controlnet.yml'
@@ -16,6 +16,7 @@ def stable(api_key=None, call=None, prompt=None, init_image=None, mask_image=Non
     api_options.update({
         'prompt': prompt,
         'key': api_key,
+        'negative_prompt': negative_prompt,
         'init_image': init_image or api_options.get('init_image'),
         'mask_image': mask_image or api_options.get('mask_image')
     })
@@ -30,3 +31,4 @@ def stable(api_key=None, call=None, prompt=None, init_image=None, mask_image=Non
         return None
 
     return response_data
+
