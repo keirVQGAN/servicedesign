@@ -5,6 +5,19 @@ import datetime
 import re
 
 
+def process_response(response):
+    status = response['status']
+    
+    if status == 'success':
+        urls = response['output']
+        for url in urls:
+            print('Image processed: ' + url)
+    
+    elif status == 'processing':
+        eta = response['eta']
+        print('Processing Image. Run fetch after ' + str(round(float(eta), 2)) + ' sec.')
+
+
 def calculate_eta(eta):
     current_time = datetime.datetime.now()
     eta_seconds = datetime.timedelta(seconds=int(eta))
