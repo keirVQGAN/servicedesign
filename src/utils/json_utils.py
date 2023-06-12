@@ -13,12 +13,18 @@ def calculate_eta(eta):
 
 def write_to_json(data, path):
     with open(path, 'w') as f:
-        json.dump(data, f)
+        json.dump(data, f, indent=4, separators=(',', ': '))
 
-        
 def append_to_json(data, path):
-    with open(path, 'a') as f:
-        json.dump(data, f)
+    existing_data = []
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            existing_data = json.load(f)
+    if type(existing_data) is dict:
+        existing_data = [existing_data]
+    existing_data.append(data)
+    with open(path, 'w') as f:
+        json.dump(existing_data, f, indent=4, separators=(',', ': '))
 
         
 def yaml2json(yaml_file):
