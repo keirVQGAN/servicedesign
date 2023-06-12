@@ -19,12 +19,11 @@ def append_to_json(data, path):
     existing_data = []
     if os.path.exists(path):
         with open(path, 'r') as f:
-            existing_data = json.load(f)
-    if type(existing_data) is dict:
-        existing_data = [existing_data]
-    existing_data.append(data)
-    with open(path, 'w') as f:
-        json.dump(existing_data, f, indent=4, separators=(',', ': '))
+            existing_data = [json.loads(line) for line in f]
+    if data not in existing_data:
+        with open(path, 'a') as f:
+            f.write(json.dumps(data, indent=4, separators=(',', ': ')) + "\n")
+
 
         
 def yaml2json(yaml_file):
