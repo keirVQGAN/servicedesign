@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+import shutil
 from pyuploadcare import Uploadcare, File
 
 def fetch_images_from_json(file_path, api_key):
