@@ -31,23 +31,13 @@ def upload_img(img_path):
   return ucare_file
 
 
-def download_img(image_urls, folder_path):
-    os.makedirs(folder_path, exist_ok=True)
-    print(f'Downloading images to {folder_path}')
-    # If a single URL is provided, wrap it in a list
-    if isinstance(image_urls, str):
-        image_urls = [image_urls]
-    
-    for url in image_urls:
-        try:
-            response = requests.get(url)
-            response.raise_for_status()
-            filename = url.rsplit('/', 1)[-1]
-            image_path = os.path.join(folder_path, filename)
-            with open(image_path, 'wb') as file:
-                file.write(response.content)
-            print(f"Downloaded: {filename}")
-        except requests.HTTPError as e:
-            print(f"Failed to download: {url} - {e}")
-        except Exception as e:
-            print(f"Error occurred while downloading: {url} - {e}")
+def download_img(url, path):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    response = requests.get(url, stream=True)
+
+    if response.status_code == 200:
+        with open(path, 'wb') as f:
+            response.raw.decode_content = True
+            shutil.copyfileobj(response.raw, f)
+    else:
+        print(f"Error downloading image: {response.status_code} - {response.text}")
