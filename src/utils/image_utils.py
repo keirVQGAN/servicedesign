@@ -3,7 +3,22 @@ import requests
 import json
 from pyuploadcare import Uploadcare, File
 
+def fetch_images_from_json(file_path, api_key):
+    with open(file_path, 'r') as f:
+        for item in json.load(f):
+            response = requests.post(
+                f"https://stablediffusionapi.com/api/v3/fetch/{item['id']}",
+                headers={'Content-Type': 'application/json'},
+                data=json.dumps({"key": api_key})
+            )
+            
+            if response.status_code != 200:
+                continue
 
+            for image_url in response.json()['output']:
+                download_img(image_url, f'./output/images/{item["id"]}/{os.path.basename(image_url)}')
+
+                
 def super(key, img_url, scale, face_enhance):
     api_url = "https://stablediffusionapi.com/api/v3/super_resolution"
     payload = json.dumps({
