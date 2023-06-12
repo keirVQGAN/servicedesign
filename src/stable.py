@@ -22,21 +22,11 @@ def stable(api_key=None, call=None, prompt=None, init_image=None, mask_image=Non
 
     headers = {"Content-Type": "application/json"}
     response = requests.post(url=url, headers=headers, json=api_options)
-    response_data = response.json()
 
-    if response_data.get('status') == 'processing':
-        eta = response_data.get('eta', 0)
-        time.sleep(max(0, eta - 2))
+    try:
+        response_data = response.json()
+    except json.JSONDecodeError:
+        print(f"Failed to parse JSON from response. Status code: {response.status_code}, Response text: {response.text}")
+        return None
 
-        while True:
-            system_load_response = requests.post('https://stablediffusionapi.com/api/v3/system_load', headers=headers, json={"key": api_key})
-            system_load_data = system_load_response.json()
-
-            if system_load_data.get('queue_num') == 0:
-                break
-
-            time.sleep(5)
-
-    links = response_data.get('output', 'No link found')
-
-    return response_data, links
+    return response_data
