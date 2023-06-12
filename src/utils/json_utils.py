@@ -5,6 +5,12 @@ from datetime import datetime
 import re
 
 
+def calculate_eta(eta):
+    current_time = datetime.datetime.now()
+    eta_seconds = datetime.timedelta(seconds=int(eta))
+    return (current_time + eta_seconds).time().strftime("%H:%M:%S")
+
+
 def write_to_json(data, path):
     with open(path, 'w') as f:
         json.dump(data, f)
