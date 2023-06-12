@@ -4,6 +4,10 @@ from docx import Document
 import zipfile
 
 
+def str2ls(string):
+    return string.split(',')
+
+
 def docx2txt(docx_path):
     doc = Document(docx_path)
     text = '\n'.join([paragraph.text for paragraph in doc.paragraphs])
