@@ -15,13 +15,21 @@ def write_to_json(data, path):
     with open(path, 'w') as f:
         json.dump(data, f, indent=4, separators=(',', ': '))
 
-
+        
 def append_to_json(data, path):
-    with open(path, 'a') as f:
-        if f.tell() != 0:
-            f.write('\n')
-        json.dump(data, f, indent=4, separators=(',', ': '))
-        f.write('\n')
+    # Try to load the existing data
+    try:
+        with open(path, 'r') as f:
+            existing_data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        existing_data = []
+
+    # Append the new data
+    existing_data.append(data)
+
+    # Write the updated data
+    with open(path, 'w') as f:
+        json.dump(existing_data, f, indent=4, separators=(',', ': '))
 
 
 
