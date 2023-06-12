@@ -1,5 +1,5 @@
 #@title `response_processor.py`
-from src.utils.json_utils import write_to_json, append_to_json, calculate_eta
+from src.utils.json_utils import write_to_json, append_to_json, calculate_eta, process_response
 from src.utils.sys_utils import mkdirs
 from src.utils.image_utils import download_img
 import datetime, os, json, shutil
@@ -29,6 +29,7 @@ class ResponseProcessor:
         processing_data = {key: self.response[key] for key in keys if key in self.response}
         processing_data['available'] = calculate_eta(self.response['eta'])
         append_to_json(processing_data, os.path.join(directory, 'processing.json'))
+        process_response(self.response)
 
         return self.response['status'], self.response, os.path.join(directory, 'processing.json')
 
@@ -48,7 +49,8 @@ class ResponseProcessor:
         for image_url in image_urls:
           image_name = os.path.basename(image_url)
           download_img(image_url, f'./output/images/{self.response["id"]}/{image_name}')
-
+        process_response(self.response)
+        
         return self.response['status'], self.response, os.path.join(id_directory, f'{self.response["id"]}.json')
 
     def process_error_response(self):
