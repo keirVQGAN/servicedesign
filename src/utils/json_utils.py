@@ -5,6 +5,16 @@ from datetime import datetime
 import re
 
 
+def write_to_json(data, path):
+    with open(path, 'w') as f:
+        json.dump(data, f)
+
+        
+def append_to_json(data, path):
+    with open(path, 'a') as f:
+        json.dump(data, f)
+
+        
 def yaml2json(yaml_file):
     with open(yaml_file, 'r') as file:
         yaml_dict = yaml.safe_load(file)
