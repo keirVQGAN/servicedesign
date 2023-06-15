@@ -2,7 +2,40 @@ import os
 import requests
 import json
 import shutil
+import imageio
+from PIL import Image
 from pyuploadcare import Uploadcare, File
+
+def gif_maker(path, gif_name, duration):
+    """
+    Create a GIF from images in a specified directory.
+
+    Parameters:
+    path (str): The directory where the images are stored.
+    gif_name (str): The name of the output GIF file.
+    duration (float): The duration each image should be displayed in the GIF.
+    """
+    # Get all files from the directory
+    files = os.listdir(path)
+
+    # Filter out all non-image files
+    images = [file for file in files if file.endswith(('jpg', 'png', 'jpeg'))]
+
+    # Sort the images by name
+    images.sort()
+
+    # Create a list to store the image data
+    image_data = []
+
+    # Read each image file, convert to RGB, and add to image_data
+    for image in images:
+        image_path = os.path.join(path, image)
+        img = Image.open(image_path).convert('RGB')
+        image_data.append(img)
+
+    # Write the images to a GIF file
+    imageio.mimsave(gif_name, image_data, duration=duration)
+
 
 def fetch_images_from_json(file_path, api_key):
     with open(file_path, 'r') as f:
